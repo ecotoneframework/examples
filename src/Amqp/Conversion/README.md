@@ -1,0 +1,1 @@
+# Example of integration with AMQP and conversion system
