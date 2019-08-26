@@ -15,7 +15,7 @@ use JMS\Serializer\SerializerBuilder;
  * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @MediaTypeConverter()
  */
-class JsonMediaTypeConverter implements Converter
+class FromPHPToJsonConverter implements Converter
 {
     /**
      * @inheritDoc
@@ -24,7 +24,7 @@ class JsonMediaTypeConverter implements Converter
     {
         $serializer = SerializerBuilder::create()->build();
 
-        return $serializer->deserialize($source, $targetType->getTypeHint(), "json");
+        return $serializer->serialize($source, "json");
     }
 
     /**
@@ -32,6 +32,7 @@ class JsonMediaTypeConverter implements Converter
      */
     public function matches(TypeDescriptor $sourceType, MediaType $sourceMediaType, TypeDescriptor $targetType, MediaType $targetMediaType): bool
     {
-        return $sourceMediaType->isCompatibleWithParsed(MediaType::APPLICATION_JSON);
+        return $sourceMediaType->isCompatibleWithParsed(MediaType::APPLICATION_X_PHP_OBJECT)
+            && $targetMediaType->isCompatibleWithParsed(MediaType::APPLICATION_JSON);
     }
 }

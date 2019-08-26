@@ -20,6 +20,15 @@ class Order
     private $orderId;
 
     /**
+     * Order constructor.
+     * @param string $orderId
+     */
+    public function __construct(string $orderId)
+    {
+        $this->orderId = $orderId;
+    }
+
+    /**
      * @return string
      */
     public function getOrderId(): string

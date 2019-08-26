@@ -50,6 +50,8 @@ class Product
      */
     public static function register(RegisterProduct $command) : self
     {
+        echo "Received RegisterProduct command\n";
+
         return new self(
             $command->getOrderId(),
             $command->getName(),
@@ -64,6 +66,8 @@ class Product
      */
     public function getPrice(GetProductPrice $query) : int
     {
+        echo "Received GetProductPrice query\n";
+
         return $this->priceAmount;
     }
 }
