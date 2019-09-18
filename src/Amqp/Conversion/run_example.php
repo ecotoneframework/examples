@@ -3,6 +3,8 @@
 use Ecotone\Amqp\AmqpPublisher;
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Handler\Logger\EchoLogger;
+use Ecotone\Messaging\Publisher;
 use Enqueue\AmqpLib\AmqpConnectionFactory as AmqpLibConnection;
 use Example\Amqp\Conversion\FromJsonToPHPConverter;
 use Example\Amqp\Conversion\FromPHPToJsonConverter;
@@ -20,7 +22,7 @@ $messagingSystem = EcotoneLiteConfiguration::createNoCache(
         OrderingEndpoint::class => new OrderingEndpoint(),
         FromJsonToPHPConverter::class => new FromJsonToPHPConverter(),
         FromPHPToJsonConverter::class => new FromPHPToJsonConverter(),
-        "logger" => new NullLogger()
+        "logger" => new EchoLogger()
     ]),
     ["Example\Amqp\Conversion"]
 );
@@ -29,11 +31,12 @@ $messagingSystem = EcotoneLiteConfiguration::createNoCache(
 
 /** Test scenario */
 
-/** @var AmqpPublisher $publisher */
-$publisher = $messagingSystem->getGatewayByName(AmqpPublisher::class);
+/** @var Publisher $publisher */
+$publisher = $messagingSystem->getGatewayByName(Publisher::class);
 
 echo "Sending message Hello World \n";
 $publisher->convertAndSend(new Order(100));
 
 echo "Receiving message Hello World\n";
 $messagingSystem->runSeparatelyRunningEndpointBy(OrderingEndpoint::ENDPOINT_ID);
+echo "Example passed\n";

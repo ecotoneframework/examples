@@ -3,7 +3,7 @@
 
 namespace Example\Amqp\PublishReceive;
 
-use Ecotone\Amqp\Annotation\AmqpEndpoint;
+use Ecotone\Amqp\Annotation\AmqpChannelAdapter;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
 
 /**
@@ -17,7 +17,7 @@ class AmqpMessageEndpoint
     const ENDPOINT_ID = "receiveMessagesEndpoint";
 
     /**
-     * @AmqpEndpoint(
+     * @AmqpChannelAdapter(
      *     endpointId=AmqpMessageEndpoint::ENDPOINT_ID,
      *     queueName="messages"
      * )

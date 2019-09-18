@@ -31,10 +31,13 @@ class BookstoreApi
     /**
      * @QueryHandler()
      * @param GetBook $query
+     * @return int
      */
     public function getBook(GetBook $query)
     {
         echo "Received GetBook query\n";
+
+        return $query->getBookId();
     }
 
     /**

@@ -3,7 +3,7 @@
 
 namespace Example\Amqp\Conversion;
 
-use Ecotone\Amqp\Annotation\AmqpEndpoint;
+use Ecotone\Amqp\Annotation\AmqpChannelAdapter;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
 
 /**
@@ -17,7 +17,7 @@ class OrderingEndpoint
     const ENDPOINT_ID = "orderingEndpoint";
 
     /**
-     * @AmqpEndpoint(
+     * @AmqpChannelAdapter(
      *     endpointId=OrderingEndpoint::ENDPOINT_ID,
      *     queueName="orders"
      * )

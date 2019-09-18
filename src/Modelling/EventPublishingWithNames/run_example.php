@@ -20,4 +20,6 @@ $messagingSystem = EcotoneLiteConfiguration::createNoCache(
 /** @var EventBus $eventBus */
 $eventBus = $messagingSystem->getGatewayByName(EventBus::class);
 
-$eventBus->convertAndSend("ecotone.product.registered", MediaType::APPLICATION_X_PHP_OBJECT, "productRegistered");
+$eventBus->convertAndSend("ecotone.product.registered", MediaType::APPLICATION_X_PHP, "productRegistered");
+
+echo "Example passed\n";

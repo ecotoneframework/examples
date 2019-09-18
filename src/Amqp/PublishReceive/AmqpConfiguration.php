@@ -3,12 +3,11 @@
 
 namespace Example\Amqp\PublishReceive;
 
-use Ecotone\Amqp\AmqpPublisher;
 use Ecotone\Amqp\AmqpQueue;
 use Ecotone\Amqp\Configuration\RegisterAmqpPublisher;
 use Ecotone\Messaging\Annotation\ApplicationContext;
 use Ecotone\Messaging\Annotation\Extension;
-use Ecotone\Messaging\Conversion\MediaType;
+use Ecotone\Messaging\Publisher;
 
 /**
  * Class AmqpConfiguration
@@ -30,7 +29,7 @@ class AmqpConfiguration
             AmqpQueue::createWith("messages"),
 
             RegisterAmqpPublisher::create(
-                AmqpPublisher::class
+                Publisher::class
             )->withAutoDeclareQueueOnSend(true)
         ];
     }

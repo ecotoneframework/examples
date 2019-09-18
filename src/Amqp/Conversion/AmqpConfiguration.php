@@ -5,12 +5,12 @@ namespace Example\Amqp\Conversion;
 
 use Ecotone\Amqp\AmqpBinding;
 use Ecotone\Amqp\AmqpExchange;
-use Ecotone\Amqp\AmqpPublisher;
 use Ecotone\Amqp\AmqpQueue;
 use Ecotone\Amqp\Configuration\RegisterAmqpPublisher;
 use Ecotone\Messaging\Annotation\ApplicationContext;
 use Ecotone\Messaging\Annotation\Extension;
 use Ecotone\Messaging\Conversion\MediaType;
+use Ecotone\Messaging\Publisher;
 use Enqueue\AmqpLib\AmqpConnectionFactory;
 
 /**
@@ -38,7 +38,7 @@ class AmqpConfiguration
             AmqpBinding::createFromNames($exchangeName, $queueName, ""),
 
             RegisterAmqpPublisher::create(
-                AmqpPublisher::class,
+                Publisher::class,
                 AmqpConnectionFactory::class,
                 $exchangeName,
                 MediaType::APPLICATION_JSON

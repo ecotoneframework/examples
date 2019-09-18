@@ -23,4 +23,12 @@ class GetBook
     {
         $this->bookId = $bookId;
     }
+
+    /**
+     * @return string
+     */
+    public function getBookId(): string
+    {
+        return $this->bookId;
+    }
 }

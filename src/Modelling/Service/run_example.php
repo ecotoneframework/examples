@@ -7,6 +7,7 @@ use Ecotone\Modelling\QueryBus;
 use Example\Modelling\Service\BookstoreApi;
 use Example\Modelling\Service\BuyBook;
 use Example\Modelling\Service\GetBook;
+use PHPUnit\Framework\Assert;
 
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
@@ -24,6 +25,7 @@ $queryBus = $messagingSystem->getGatewayByName(QueryBus::class);
 
 $commandBus->send(new BuyBook(123));
 
-$queryBus->send(new GetBook(123));
+$book = $queryBus->send(new GetBook(123));
+Assert::assertEquals($book, 123);
 
 echo "Example passed\n";
