@@ -31,7 +31,7 @@ class GuestBook
 
     /**
      * @return Person[]
-     * @QueryHandler(inputChannelName="guestBook.getRecorded", ignoreMessage=true)
+     * @QueryHandler(inputChannelName="guestBook.getRecorded")
      */
     public function getRecorded() : array
     {

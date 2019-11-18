@@ -10,7 +10,7 @@ use Ecotone\Modelling\Annotation\AggregateIdentifier;
  * @package Example\Modelling\Aggregate
  * @author Dariusz Gafka <dgafka.mail@gmail.com>
  */
-class RegisterProduct
+class RegisterProductCommand
 {
     /**
      * @var string

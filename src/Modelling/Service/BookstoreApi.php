@@ -10,30 +10,24 @@ use Ecotone\Modelling\Annotation\QueryHandler;
 use Ecotone\Modelling\EventBus;
 
 /**
- * Class ApiService
- * @package Ecotone\Modelling\Service
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @MessageEndpoint()
  */
 class BookstoreApi
 {
     /**
      * @CommandHandler()
-     * @param BuyBook $command
-     * @param EventBus $eventBus
      */
     public function buyBook(BuyBook $command, EventBus $eventBus) : void
     {
         echo "Received BuyBook command\n";
+
         $eventBus->send(new BookBought($command->getBookId()));
     }
 
     /**
      * @QueryHandler()
-     * @param GetBook $query
-     * @return int
      */
-    public function getBook(GetBook $query)
+    public function getBook(GetBook $query) : string
     {
         echo "Received GetBook query\n";
 
@@ -42,7 +36,6 @@ class BookstoreApi
 
     /**
      * @EventHandler()
-     * @param BookBought $event
      */
     public function notifyAboutBoughtBook(BookBought $event) : void
     {

@@ -1,8 +1,8 @@
 <?php
 
-use Example\Modelling\Aggregate\GetProductPrice;
+use Example\Modelling\Aggregate\GetProductPriceQuery;
 use Example\Modelling\Aggregate\ProductRepository;
-use Example\Modelling\Aggregate\RegisterProduct;
+use Example\Modelling\Aggregate\RegisterProductCommand;
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
 use Ecotone\Modelling\CommandBus;
@@ -25,7 +25,7 @@ $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);
 $queryBus = $messagingSystem->getGatewayByName(QueryBus::class);
 
 
-$commandBus->send(new RegisterProduct(123, "Table", 100));
+$commandBus->send(new RegisterProductCommand(123, "Table", 100));
 
-$queryBus->send(new GetProductPrice(123));
+$queryBus->send(new GetProductPriceQuery(123));
 echo "Example passed\n";

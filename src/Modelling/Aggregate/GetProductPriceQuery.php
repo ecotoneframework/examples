@@ -4,7 +4,7 @@
 namespace Example\Modelling\Aggregate;
 
 
-class GetProductPrice
+class GetProductPriceQuery
 {
     /**
      * @var string

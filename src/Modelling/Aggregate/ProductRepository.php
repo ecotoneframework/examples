@@ -3,15 +3,16 @@
 
 namespace Example\Modelling\Aggregate;
 
-use Ecotone\Modelling\Annotation\AggregateRepository;
+use Ecotone\Modelling\Annotation\Repository;
+use Ecotone\Modelling\StandardRepository;
 
 /**
  * Class OrderRepository
  * @package Example\Modelling\Aggregate
  * @author Dariusz Gafka <dgafka.mail@gmail.com>
- * @AggregateRepository()
+ * @Repository()
  */
-class ProductRepository implements \Ecotone\Modelling\AggregateRepository
+class ProductRepository implements StandardRepository
 {
     /**
      * @var Product[]
@@ -39,7 +40,7 @@ class ProductRepository implements \Ecotone\Modelling\AggregateRepository
     /**
      * @inheritDoc
      */
-    public function findBy(string $aggregateClassName, array $identifiers)
+    public function findBy(string $aggregateClassName, array $identifiers) : ?object
     {
         if (!isset($this->orders[$this->getIdentifier($identifiers)])) {
             return null;
@@ -51,15 +52,7 @@ class ProductRepository implements \Ecotone\Modelling\AggregateRepository
     /**
      * @inheritDoc
      */
-    public function findWithLockingBy(string $aggregateClassName, array $identifiers, int $expectedVersion)
-    {
-        return;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function save(array $identifiers, $aggregate, array $metadata): void
+    public function save(array $identifiers, $aggregate, array $metadata, ?int $expectedVersion): void
     {
         $this->orders[$this->getIdentifier($identifiers)] = $aggregate;
     }

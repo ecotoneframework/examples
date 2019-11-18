@@ -9,9 +9,6 @@ use Ecotone\Modelling\Annotation\CommandHandler;
 use Ecotone\Modelling\Annotation\QueryHandler;
 
 /**
- * Class Order
- * @package Example\Modelling\Aggregate
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @Aggregate()
  */
 class Product
@@ -30,12 +27,6 @@ class Product
      */
     private $priceAmount;
 
-    /**
-     * Order constructor.
-     * @param string $orderId
-     * @param string $name
-     * @param int $priceAmount
-     */
     private function __construct(string $orderId, string $name, int $priceAmount)
     {
         $this->productId = $orderId;
@@ -44,11 +35,9 @@ class Product
     }
 
     /**
-     * @param RegisterProduct $command
-     * @return Product
      * @CommandHandler()
      */
-    public static function register(RegisterProduct $command) : self
+    public static function register(RegisterProductCommand $command) : self
     {
         echo "Received RegisterProduct command\n";
 
@@ -60,11 +49,11 @@ class Product
     }
 
     /**
-     * @param GetProductPrice $query
+     * @param GetProductPriceQuery $query
      * @return int
      * @QueryHandler()
      */
-    public function getPrice(GetProductPrice $query) : int
+    public function getPrice(GetProductPriceQuery $query) : int
     {
         echo "Received GetProductPrice query\n";
 
