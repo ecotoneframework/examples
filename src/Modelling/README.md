@@ -5,7 +5,8 @@
 1. `Service`  
 2. `Aggregate`  
 3. `AggregateWithEventPublishing`
-4. `Conversion`
-5. `EventPublishingWithNames`
-6. `Metadata`
-6. `Intercepting`
+4. `EventSourcing`
+5. `Conversion`
+6. `EventPublishingWithNames`
+7. `Metadata`
+8. `Intercepting`

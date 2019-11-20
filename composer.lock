@@ -309,16 +309,16 @@
         },
         {
             "name": "ecotone/ecotone",
-            "version": "0.4.8",
+            "version": "0.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecotoneframework/ecotone.git",
-                "reference": "c35f49ac956054e14eff96e25a5ab43592739a80"
+                "reference": "0fa6a9c9e7e39abff5be69732caedf0a4dadbc8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecotoneframework/ecotone/zipball/c35f49ac956054e14eff96e25a5ab43592739a80",
-                "reference": "c35f49ac956054e14eff96e25a5ab43592739a80",
+                "url": "https://api.github.com/repos/ecotoneframework/ecotone/zipball/0fa6a9c9e7e39abff5be69732caedf0a4dadbc8b",
+                "reference": "0fa6a9c9e7e39abff5be69732caedf0a4dadbc8b",
                 "shasum": ""
             },
             "require": {
@@ -374,7 +374,7 @@
                 "query",
                 "spring"
             ],
-            "time": "2019-11-18T18:40:24+00:00"
+            "time": "2019-11-18T19:30:55+00:00"
         },
         {
             "name": "enqueue/amqp-lib",
