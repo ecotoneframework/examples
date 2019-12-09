@@ -1,0 +1,1 @@
+# Examples of integration between two applications using AMQP 

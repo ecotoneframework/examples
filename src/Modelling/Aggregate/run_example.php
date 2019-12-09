@@ -1,23 +1,26 @@
 <?php
 
+use Ecotone\Lite\EcotoneLiteConfiguration;
+use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
+use Ecotone\Modelling\CommandBus;
+use Ecotone\Modelling\QueryBus;
 use Example\Modelling\Aggregate\GetProductPriceQuery;
 use Example\Modelling\Aggregate\ProductRepository;
 use Example\Modelling\Aggregate\RegisterProductCommand;
-use Ecotone\Lite\EcotoneLiteConfiguration;
-use Ecotone\Lite\InMemoryPSRContainer;
-use Ecotone\Modelling\CommandBus;
-use Ecotone\Modelling\QueryBus;
-use PHPUnit\Framework\Assert;
-use Ramsey\Uuid\Uuid;
 
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([ProductRepository::createEmpty()]),
-    ["Example\Modelling\Aggregate"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\Aggregate"])
 );
+
+// Begin test scenario
 
 /** @var CommandBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

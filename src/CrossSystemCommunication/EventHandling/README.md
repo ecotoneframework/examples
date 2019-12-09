@@ -1,0 +1,1 @@
+# Example using Fanout Amqp Channel 

@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Modelling\CommandBusWithEventPublishing;
 use Ecotone\Modelling\QueryBus;
 use Example\Modelling\AggregateWithEventPublishing\Box;
@@ -13,14 +14,18 @@ use Example\Modelling\AggregateWithEventPublishing\StorageSupervisor;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([
         StorageRepository::createEmpty(),
         new StorageSupervisor()
     ]),
-    ["Example\Modelling\AggregateWithEventPublishing"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\AggregateWithEventPublishing"])
 );
+
+// Begin test scenario
 
 /** @var CommandBusWithEventPublishing $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBusWithEventPublishing::class);

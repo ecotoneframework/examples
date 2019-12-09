@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
 use Example\Modelling\Service\BookstoreApi;
@@ -12,11 +13,15 @@ use PHPUnit\Framework\Assert;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([new BookstoreApi()]),
-    ["Example\Modelling\Service"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\Service"])
 );
+
+// Begin test scenario
 
 /** @var CommandBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

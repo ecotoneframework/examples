@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Modelling\CommandBusWithEventPublishing;
 use Ecotone\Modelling\QueryBus;
 use Example\Modelling\EventSourcing\AssignWorkerCommand;
@@ -14,12 +15,14 @@ use PHPUnit\Framework\Assert;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([
         new NotificationService(), TicketRepository::createEmpty()
     ]),
-    ["Example\Modelling\EventSourcing"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\EventSourcing"])
 );
 
 /** @var CommandBusWithEventPublishing $commandBus */

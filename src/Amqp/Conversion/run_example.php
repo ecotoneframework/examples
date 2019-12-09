@@ -3,6 +3,7 @@
 use Ecotone\Amqp\AmqpPublisher;
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Messaging\Publisher;
 use Enqueue\AmqpLib\AmqpConnectionFactory as AmqpLibConnection;
@@ -15,7 +16,7 @@ use Psr\Log\NullLogger;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromAssociativeArray([
         AmqpLibConnection::class => new AmqpLibConnection(["dsn" => "amqp://rabbitmq:5672"]),
@@ -24,10 +25,12 @@ $messagingSystem = EcotoneLiteConfiguration::createNoCache(
         FromPHPToJsonConverter::class => new FromPHPToJsonConverter(),
         "logger" => new EchoLogger()
     ]),
-    ["Example\Amqp\Conversion"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Amqp\Conversion"])
 );
 
-
+// Begin test scenario
 
 /** Test scenario */
 

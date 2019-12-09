@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Messaging\Publisher;
@@ -12,15 +13,19 @@ use Psr\Log\NullLogger;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromAssociativeArray([
         AmqpLibConnection::class => new AmqpLibConnection(["dsn" => "amqp://rabbitmq:5672"]),
         AmqpMessageEndpoint::class => new AmqpMessageEndpoint(),
         "logger" => new EchoLogger()
     ]),
-    ["Example\Amqp\PublishReceive"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Amqp\PublishReceive"])
 );
+
+// Begin test scenario
 
 /** @var Publisher $publisher */
 $publisher = $messagingSystem->getGatewayByName(Publisher::class);

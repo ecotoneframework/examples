@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\EventBus;
@@ -13,13 +14,15 @@ use PHPUnit\Framework\Assert;
 $rootCatalog = realpath(__DIR__ . "/../../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([
         new ArticleService(),
         new AddExecutorIdService()
     ]),
-    ["Example\Modelling\Intercepting\Before"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\Intercepting\Before"])
 );
 
 /** @var EventBus $commandBus */

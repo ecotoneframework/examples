@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\QueryBus;
@@ -12,15 +13,19 @@ use Example\Modelling\Conversion\GuestBook;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([
         new GuestBook(),
         new FromJsonToPHPConverter(),
         new FromPHPToJsonConverter()
     ]),
-    ["Example\Modelling\Conversion"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\Conversion"])
 );
+
+// Begin test scenario
 
 /** @var CommandBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

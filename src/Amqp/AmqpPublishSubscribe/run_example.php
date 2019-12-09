@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Modelling\CommandBus;
@@ -15,7 +16,7 @@ use Example\Amqp\AmqpPublishSubscribe\RegisterPersonProfileHandler;
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromAssociativeArray([
         AmqpConnectionFactory::class => new AmqpConnectionFactory(["dsn" => "amqp://rabbitmq:5672"]),
@@ -25,9 +26,12 @@ $messagingSystem = EcotoneLiteConfiguration::createNoCache(
         FromPHPToJsonConverter::class => new FromPHPToJsonConverter(),
         "logger" => new EchoLogger()
     ]),
-    ["Example\Amqp\AmqpPublishSubscribe"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Amqp\AmqpPublishSubscribe"])
 );
 
+// Begin test scenario
 
 /** @var CommandBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

@@ -2,6 +2,7 @@
 
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
+use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\EventBus;
 use Ecotone\Modelling\QueryBus;
@@ -14,14 +15,16 @@ use Example\Modelling\Intercepting\Around\TransactionInterceptor\TransactionServ
 $rootCatalog = realpath(__DIR__ . "/../../../../");
 require $rootCatalog . "/vendor/autoload.php";
 
-$messagingSystem = EcotoneLiteConfiguration::createNoCache(
+$messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([
         ShopRepository::createEmpty(),
         new TransactionService(),
         new IsShopOwnerService()
     ]),
-    ["Example\Modelling\Intercepting\Around"]
+    ApplicationConfiguration::createWithDefaults()
+        ->withLoadSrc(false)
+        ->withNamespaces(["Example\Modelling\Intercepting\Around"])
 );
 
 /** @var EventBus $commandBus */
