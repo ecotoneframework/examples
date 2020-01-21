@@ -31,7 +31,7 @@ class AmqpConfiguration
     public function registerAmqpConfig(): array
     {
         return [
-            AmqpBackedMessageChannelBuilder::createDirectChannel(self::SEND_NOTIFICATION_CHANNEL)
+            AmqpBackedMessageChannelBuilder::create(self::SEND_NOTIFICATION_CHANNEL)
                 ->withDefaultConversionMediaType(MediaType::APPLICATION_JSON)
         ];
     }

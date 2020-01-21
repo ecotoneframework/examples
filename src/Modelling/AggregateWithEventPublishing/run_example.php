@@ -3,8 +3,8 @@
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
 use Ecotone\Messaging\Config\ApplicationConfiguration;
+use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\CommandBusWithEventPublishing;
-use Ecotone\Modelling\QueryBus;
 use Example\Modelling\AggregateWithEventPublishing\Box;
 use Example\Modelling\AggregateWithEventPublishing\Command\OpenStorage;
 use Example\Modelling\AggregateWithEventPublishing\Command\RegisterBox;
@@ -27,8 +27,8 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
 
 // Begin test scenario
 
-/** @var CommandBusWithEventPublishing $commandBus */
-$commandBus = $messagingSystem->getGatewayByName(CommandBusWithEventPublishing::class);
+/** @var CommandBus $commandBus */
+$commandBus = $messagingSystem->getGatewayByName(CommandBus::class);
 
 $commandBus->send(new OpenStorage(123, 2));
 $commandBus->send(new RegisterBox(123, new Box(1)));

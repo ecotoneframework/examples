@@ -30,7 +30,7 @@ class AmqpConfiguration
     public function registerAmqpConfig(): array
     {
         return [
-            AmqpBackedMessageChannelBuilder::createDirectChannel(self::AMQP_CHANNEL_NAME)
+            AmqpBackedMessageChannelBuilder::create(self::AMQP_CHANNEL_NAME)
         ];
     }
 }

@@ -3,6 +3,7 @@
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
 use Ecotone\Messaging\Config\ApplicationConfiguration;
+use Ecotone\Modelling\CommandBus;
 use Ecotone\Modelling\CommandBusWithEventPublishing;
 use Ecotone\Modelling\QueryBus;
 use Example\Modelling\EventSourcing\AssignWorkerCommand;
@@ -25,8 +26,8 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         ->withNamespaces(["Example\Modelling\EventSourcing"])
 );
 
-/** @var CommandBusWithEventPublishing $commandBus */
-$commandBus = $messagingSystem->getGatewayByName(CommandBusWithEventPublishing::class);
+/** @var CommandBus $commandBus */
+$commandBus = $messagingSystem->getGatewayByName(CommandBus::class);
 /** @var QueryBus $queryBus */
 $queryBus = $messagingSystem->getGatewayByName(QueryBus::class);
 
