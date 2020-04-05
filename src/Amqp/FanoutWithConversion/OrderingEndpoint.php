@@ -1,15 +1,13 @@
 <?php
 
 
-namespace Example\Amqp\Conversion;
+namespace Example\Amqp\FanoutWithConversion;
 
 use Ecotone\Amqp\Annotation\AmqpChannelAdapter;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
+use Ecotone\Messaging\Annotation\Poller;
 
 /**
- * Class CommandConsumer
- * @package Example\Amqp\PublishReceive
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @MessageEndpoint()
  */
 class OrderingEndpoint
@@ -19,14 +17,14 @@ class OrderingEndpoint
     /**
      * @AmqpChannelAdapter(
      *     endpointId=OrderingEndpoint::ENDPOINT_ID,
-     *     queueName="orders"
+     *     queueName=AmqpConfiguration::ORDERS_QUEUE,
+     *     poller=@Poller(
+     *          handledMessageLimit=1
+     *     )
      * )
-     * @param Order $order
      */
     public function execute(Order $order) : void
     {
         echo "Received Order object\n";
-        var_dump($order);
-        die("Example passed\n");
     }
 }

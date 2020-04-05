@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Async\Amqp;
+namespace Example\Amqp\Async;
 
 use JMS\Serializer\Annotation AS Serializer;
 

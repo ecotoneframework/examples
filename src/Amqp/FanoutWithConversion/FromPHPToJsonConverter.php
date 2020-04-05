@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Async\Amqp\Converter;
+namespace Example\Amqp\FanoutWithConversion;
 
 use Ecotone\Messaging\Annotation\MediaTypeConverter;
 use Ecotone\Messaging\Conversion\Converter;
@@ -15,7 +15,7 @@ use JMS\Serializer\SerializerBuilder;
  * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @MediaTypeConverter()
  */
-class FromJsonToPHPConverter implements Converter
+class FromPHPToJsonConverter implements Converter
 {
     /**
      * @inheritDoc
@@ -24,7 +24,7 @@ class FromJsonToPHPConverter implements Converter
     {
         $serializer = SerializerBuilder::create()->build();
 
-        return $serializer->deserialize($source, $targetType->getTypeHint(), "json");
+        return $serializer->serialize($source, "json");
     }
 
     /**
@@ -32,11 +32,7 @@ class FromJsonToPHPConverter implements Converter
      */
     public function matches(TypeDescriptor $sourceType, MediaType $sourceMediaType, TypeDescriptor $targetType, MediaType $targetMediaType): bool
     {
-        if ($targetType->isInterface()) {
-            return false;
-        }
-
-        return $sourceMediaType->isCompatibleWithParsed(MediaType::APPLICATION_JSON)
-            && $targetMediaType->isCompatibleWithParsed(MediaType::APPLICATION_X_PHP);
+        return $sourceMediaType->isCompatibleWithParsed(MediaType::APPLICATION_X_PHP)
+            && $targetMediaType->isCompatibleWithParsed(MediaType::APPLICATION_JSON);
     }
 }

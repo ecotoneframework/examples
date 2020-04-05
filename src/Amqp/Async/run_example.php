@@ -6,11 +6,11 @@ use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Modelling\EventBus;
 use Enqueue\AmqpLib\AmqpConnectionFactory as AmqpLibConnection;
-use Example\Async\Amqp\AmqpConfiguration;
-use Example\Async\Amqp\Converter\FromJsonToPHPConverter;
-use Example\Async\Amqp\Converter\FromPHPToJsonConverter;
-use Example\Async\Amqp\PersonWasRegistered;
-use Example\Async\Amqp\SendNotificationWhenPersonRegistered;
+use Example\Amqp\Async\AmqpConfiguration;
+use Example\Amqp\Async\Converter\FromJsonToPHPConverter;
+use Example\Amqp\Async\Converter\FromPHPToJsonConverter;
+use Example\Amqp\Async\PersonWasRegistered;
+use Example\Amqp\Async\SendNotificationWhenPersonRegistered;
 
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
@@ -25,8 +25,7 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         FromPHPToJsonConverter::class => new FromPHPToJsonConverter()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
-        ->withNamespaces(["Example\Async\Amqp"])
+        ->withNamespaces(["Example\Amqp\Async"])
 );
 
 

@@ -1,38 +1,36 @@
 <?php
 
 
-namespace Example\Async\Amqp;
+namespace Example\Amqp\Async;
 
 use Ecotone\Amqp\AmqpBackedMessageChannelBuilder;
 use Ecotone\Messaging\Annotation\ApplicationContext;
 use Ecotone\Messaging\Annotation\Extension;
 use Ecotone\Messaging\Conversion\MediaType;
+use Ecotone\Messaging\Endpoint\PollingMetadata;
 use Ecotone\Messaging\MessagingException;
 use Ecotone\Messaging\Support\InvalidArgumentException;
 
 /**
- * Class AmqpConfiguration
- * @package Example\Amqp\PublishReceive
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @ApplicationContext()
  */
 class AmqpConfiguration
 {
-    const SEND_NOTIFICATION_CHANNEL = "sendNotification";
+    const SEND_NOTIFICATION_CHANNEL = "amqp_sendNotification";
 
     /**
      * Registers queue and exchange publisher
      *
-     * @return array
-     * @throws MessagingException
-     * @throws InvalidArgumentException
      * @Extension()
      */
     public function registerAmqpConfig(): array
     {
         return [
             AmqpBackedMessageChannelBuilder::create(self::SEND_NOTIFICATION_CHANNEL)
-                ->withDefaultConversionMediaType(MediaType::APPLICATION_JSON)
+                ->withDefaultConversionMediaType(MediaType::APPLICATION_JSON),
+
+            PollingMetadata::create(self::SEND_NOTIFICATION_CHANNEL)
+                ->setHandledMessageLimit(1)
         ];
     }
 }

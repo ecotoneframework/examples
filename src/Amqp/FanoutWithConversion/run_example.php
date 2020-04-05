@@ -7,10 +7,10 @@ use Ecotone\Messaging\Config\ApplicationConfiguration;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Messaging\Publisher;
 use Enqueue\AmqpLib\AmqpConnectionFactory as AmqpLibConnection;
-use Example\Amqp\Conversion\FromJsonToPHPConverter;
-use Example\Amqp\Conversion\FromPHPToJsonConverter;
-use Example\Amqp\Conversion\Order;
-use Example\Amqp\Conversion\OrderingEndpoint;
+use Example\Amqp\FanoutWithConversion\FromJsonToPHPConverter;
+use Example\Amqp\FanoutWithConversion\FromPHPToJsonConverter;
+use Example\Amqp\FanoutWithConversion\Order;
+use Example\Amqp\FanoutWithConversion\OrderingEndpoint;
 use Psr\Log\NullLogger;
 
 $rootCatalog = realpath(__DIR__ . "/../../../");
@@ -26,8 +26,7 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         "logger" => new EchoLogger()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
-        ->withNamespaces(["Example\Amqp\Conversion"])
+        ->withNamespaces(["Example\Amqp\FanoutWithConversion"])
 );
 
 // Begin test scenario

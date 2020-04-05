@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Amqp\Conversion;
+namespace Example\Amqp\Async\Converter;
 
 use Ecotone\Messaging\Annotation\MediaTypeConverter;
 use Ecotone\Messaging\Conversion\Converter;

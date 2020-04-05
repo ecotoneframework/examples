@@ -1,25 +1,20 @@
 <?php
 
 
-namespace Example\Async\Amqp;
+namespace Example\Amqp\Async;
 
 use Ecotone\Messaging\Annotation\Async;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
 use Ecotone\Messaging\Annotation\ServiceActivator;
 use Ecotone\Modelling\Annotation\EventHandler;
-use Example\Async\Amqp\AmqpConfiguration;
+use Example\Amqp\Async\AmqpConfiguration;
 
 /**
- * Class SendNotificationWhenPersonRegistered
- * @package Example\Async\Amqp
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @MessageEndpoint()
  */
 class SendNotificationWhenPersonRegistered
 {
     /**
-     * @param PersonRelatedEvent $personWasRegistered
-     *
      * @EventHandler(endpointId="notificator")
      * @Async(channelName=AmqpConfiguration::SEND_NOTIFICATION_CHANNEL)
      */
@@ -27,7 +22,5 @@ class SendNotificationWhenPersonRegistered
     {
         echo "Received event";
         var_dump($personWasRegistered);
-
-        die();
     }
 }

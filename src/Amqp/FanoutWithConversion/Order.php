@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Amqp\Conversion;
+namespace Example\Amqp\FanoutWithConversion;
 
 use JMS\Serializer\Annotation AS Serializer;
 

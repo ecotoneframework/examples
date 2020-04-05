@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Amqp\Conversion;
+namespace Example\Amqp\FanoutWithConversion;
 
 use Ecotone\Amqp\AmqpBinding;
 use Ecotone\Amqp\AmqpExchange;
@@ -14,24 +14,21 @@ use Ecotone\Messaging\Publisher;
 use Enqueue\AmqpLib\AmqpConnectionFactory;
 
 /**
- * Class AmqpConfiguration
- * @package Example\Amqp\PublishReceive
- * @author Dariusz Gafka <dgafka.mail@gmail.com>
  * @ApplicationContext()
  */
 class AmqpConfiguration
 {
+    const ORDERS_QUEUE = "amqp_orders";
+
     /**
      * Registers queue and exchange publisher
-     *
-     * @return array
-     * @throws \Ecotone\Messaging\MessagingException
      * @Extension()
      */
     public function registerAmqpConfig(): array
     {
         $exchangeName = "fanout";
-        $queueName = "orders";
+        $queueName = self::ORDERS_QUEUE;
+
         return [
             AmqpQueue::createWith($queueName),
             AmqpExchange::createFanoutExchange($exchangeName),
@@ -41,7 +38,8 @@ class AmqpConfiguration
                 Publisher::class,
                 $exchangeName,
                 MediaType::APPLICATION_JSON
-            )->withAutoDeclareQueueOnSend(true)
+            )
+                ->withAutoDeclareQueueOnSend(true)
         ];
     }
 }

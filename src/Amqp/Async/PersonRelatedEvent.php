@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Example\Async\Amqp;
+namespace Example\Amqp\Async;
 
 /**
  * Interface PersonRelatedEvent
- * @package Example\Async\Amqp
+ * @package Example\Amqp\Async
  * @author Dariusz Gafka <dgafka.mail@gmail.com>
  */
 interface PersonRelatedEvent

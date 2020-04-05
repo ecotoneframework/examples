@@ -29,7 +29,12 @@ class AmqpShopConfiguration
             RegisterAmqpPublisher::create(
                 Publisher::class,
                 "delivery"
-            )->withHeaderMapper("system.*")
+            )
+                ->withDefaultPersistentDelivery(true)
+                ->withDefaultRoutingKey("someKey")
+                ->withRoutingKeyFromHeader("routingKey")
+                ->withAutoDeclareQueueOnSend(true)
+                ->withHeaderMapper("system.*")
         ];
     }
 }

@@ -3,12 +3,10 @@
 use Ecotone\Lite\EcotoneLiteConfiguration;
 use Ecotone\Lite\InMemoryPSRContainer;
 use Ecotone\Messaging\Config\ApplicationConfiguration;
-use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Messaging\Handler\Logger\EchoLogger;
 use Ecotone\Messaging\Publisher;
-use Enqueue\AmqpLib\AmqpConnectionFactory as AmqpLibConnection;
-use Example\Amqp\PublishReceive\AmqpMessageEndpoint;
-use Psr\Log\NullLogger;
+use Enqueue\AmqpLib\AmqpConnectionFactory;
+use Example\Amqp\CustomExchange\Consumer;
 
 $rootCatalog = realpath(__DIR__ . "/../../../");
 require $rootCatalog . "/vendor/autoload.php";
@@ -16,13 +14,12 @@ require $rootCatalog . "/vendor/autoload.php";
 $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromAssociativeArray([
-        AmqpLibConnection::class => new AmqpLibConnection(["dsn" => "amqp://rabbitmq:5672"]),
-        AmqpMessageEndpoint::class => new AmqpMessageEndpoint(),
+        AmqpConnectionFactory::class => new AmqpConnectionFactory(["dsn" => "amqp://rabbitmq:5672"]),
+        Consumer::class => new Consumer(),
         "logger" => new EchoLogger()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
-        ->withNamespaces(["Example\Amqp\PublishReceive"])
+        ->withNamespaces(["Example\Amqp\CustomExchange"])
 );
 
 // Begin test scenario
@@ -30,8 +27,8 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
 /** @var Publisher $publisher */
 $publisher = $messagingSystem->getGatewayByName(Publisher::class);
 
-echo "Sending message Hello World \n";
-$publisher->sendWithMetadata("Hello World", ["amqpRouting" => "messages"],MediaType::TEXT_PLAIN);
+echo "Sending message using Publisher \n";
+$publisher->send("Hello new message!");
 
-echo "Receiving message Hello World\n";
-$messagingSystem->runSeparatelyRunningEndpointBy(AmqpMessageEndpoint::ENDPOINT_ID);
+echo "Receiving message using Consumer\n";
+$messagingSystem->runSeparatelyRunningEndpointBy(Consumer::ENDPOINT_ID);

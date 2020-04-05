@@ -1,0 +1,1 @@
+# Example of integration receiving and sending messages to AMQP using default exchange
