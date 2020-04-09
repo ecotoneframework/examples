@@ -14,7 +14,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new SynchronizationService()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Scheduling\FixedRate"])
 );
 

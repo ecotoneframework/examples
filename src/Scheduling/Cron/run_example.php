@@ -15,7 +15,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new UserService()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Scheduling\Cron"])
 );
 

@@ -17,7 +17,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([new BookstoreApi()]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Service"])
 );
 

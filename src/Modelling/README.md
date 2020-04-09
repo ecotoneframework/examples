@@ -1,6 +1,9 @@
 # Modelling examples
 
-## Get known with examples in below order:
+## Best way to interpret examples
+Read in [Main Read me](../../README.md) 
+
+## Proposed order for getting known with examples:
 
 1. `Service`  
 2. `Aggregate`  

@@ -16,7 +16,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new ProductListener(),
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\EventPublishingWithNames"])
 );
 

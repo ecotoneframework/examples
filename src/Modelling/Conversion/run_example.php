@@ -21,7 +21,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new FromPHPToJsonConverter()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Conversion"])
 );
 

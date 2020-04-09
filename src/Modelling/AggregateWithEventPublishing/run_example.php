@@ -21,7 +21,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new StorageSupervisor()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\AggregateWithEventPublishing"])
 );
 

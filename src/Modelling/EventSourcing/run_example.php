@@ -22,9 +22,10 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new NotificationService(), TicketRepository::createEmpty()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\EventSourcing"])
 );
+
+// Begin test scenario
 
 /** @var CommandBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

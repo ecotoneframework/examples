@@ -21,7 +21,6 @@ $deliveryApplication = EcotoneLiteConfiguration::createWithConfiguration(
         new OrderProcessor()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\CrossSystemCommunication\CommandHandling\Delivery"])
 );
 
@@ -32,7 +31,6 @@ $shopApplication = EcotoneLiteConfiguration::createWithConfiguration(
         new OrderApi()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\CrossSystemCommunication\CommandHandling\Shop"])
 );
 
@@ -44,6 +42,7 @@ $shopApplication = EcotoneLiteConfiguration::createWithConfiguration(
 // As message was not send yet, it runs for 100ms and quits (look @Poller in OrderProcessor)
 
 $deliveryApplication->runSeparatelyRunningEndpointBy("orderProcessor");
+
 
 // Shop application - publishing message
 

@@ -19,7 +19,6 @@ $deliveryApplication = EcotoneLiteConfiguration::createWithConfiguration(
         new Notificator()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\CrossSystemCommunication\EventHandling\Notification"])
 );
 
@@ -30,7 +29,6 @@ $shopApplication = EcotoneLiteConfiguration::createWithConfiguration(
         new OrderApi()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\CrossSystemCommunication\EventHandling\Shop"])
 );
 

@@ -20,9 +20,10 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new TransformAllQueryServicesToResult()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Intercepting\After"])
 );
+
+// Begin test scenario
 
 /** @var QueryBus $queryBus */
 $queryBus = $messagingSystem->getGatewayByName(QueryBus::class);

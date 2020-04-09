@@ -15,7 +15,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([new PersonDetailsService()]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Metadata"])
 );
 

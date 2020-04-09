@@ -31,9 +31,7 @@ class AmqpShopConfiguration
                 "delivery"
             )
                 ->withDefaultPersistentDelivery(true)
-                ->withDefaultRoutingKey("someKey")
                 ->withRoutingKeyFromHeader("routingKey")
-                ->withAutoDeclareQueueOnSend(true)
                 ->withHeaderMapper("system.*")
         ];
     }

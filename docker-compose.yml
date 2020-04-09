@@ -3,6 +3,7 @@ version: "3"
 services:
   app:
     image: simplycodedsoftware/ci:7.3
+    container_name: "ecotone_example"
     volumes:
       - "$PWD:/data/app"
     user: 1000:1000
@@ -17,3 +18,10 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - default
+  database:
+    image: postgres:12.1
+    networks:
+      - default
+    environment:
+      POSTGRES_USER: "ecotone"
+      POSTGRES_PASSWORD: "secret"

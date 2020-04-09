@@ -23,9 +23,10 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new IsShopOwnerService()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Intercepting\Around"])
 );
+
+// Begin test scenario
 
 /** @var EventBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

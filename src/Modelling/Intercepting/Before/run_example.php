@@ -21,9 +21,10 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
         new AddExecutorIdService()
     ]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Intercepting\Before"])
 );
+
+// Begin test scenario
 
 /** @var EventBus $commandBus */
 $commandBus = $messagingSystem->getGatewayByName(CommandBus::class);

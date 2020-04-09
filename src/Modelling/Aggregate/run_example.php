@@ -16,7 +16,6 @@ $messagingSystem = EcotoneLiteConfiguration::createWithConfiguration(
     $rootCatalog,
     InMemoryPSRContainer::createFromObjects([ProductRepository::createEmpty()]),
     ApplicationConfiguration::createWithDefaults()
-        ->withLoadSrc(false)
         ->withNamespaces(["Example\Modelling\Aggregate"])
 );
 
