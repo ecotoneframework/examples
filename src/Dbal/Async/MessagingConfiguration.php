@@ -8,13 +8,11 @@ use Ecotone\Messaging\Annotation\ApplicationContext;
 use Ecotone\Messaging\Annotation\Extension;
 use Ecotone\Messaging\Conversion\MediaType;
 use Ecotone\Messaging\Endpoint\PollingMetadata;
-use Ecotone\Messaging\MessagingException;
-use Ecotone\Messaging\Support\InvalidArgumentException;
 
 /**
  * @ApplicationContext()
  */
-class DbalConfiguration
+class MessagingConfiguration
 {
     const SEND_ORDER_CHANNEL = "dbal_place_order";
 

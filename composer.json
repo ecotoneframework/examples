@@ -23,9 +23,9 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
-        "ecotone/ecotone": "^0.9",
-        "ecotone/amqp": "^0.9",
-        "ecotone/dbal": "^0.9",
+        "ecotone/ecotone": "^0.10",
+        "ecotone/amqp": "^0.10",
+        "ecotone/dbal": "^0.10",
         "jms/serializer": "^3.1.1"
     },
     "require-dev": {

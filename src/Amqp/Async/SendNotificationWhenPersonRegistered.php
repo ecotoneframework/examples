@@ -3,11 +3,9 @@
 
 namespace Example\Amqp\Async;
 
-use Ecotone\Messaging\Annotation\Async;
+use Ecotone\Messaging\Annotation\Asynchronous;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
-use Ecotone\Messaging\Annotation\ServiceActivator;
 use Ecotone\Modelling\Annotation\EventHandler;
-use Example\Amqp\Async\AmqpConfiguration;
 
 /**
  * @MessageEndpoint()
@@ -15,8 +13,8 @@ use Example\Amqp\Async\AmqpConfiguration;
 class SendNotificationWhenPersonRegistered
 {
     /**
+     * @Asynchronous(channelName=AmqpConfiguration::SEND_NOTIFICATION_CHANNEL)
      * @EventHandler(endpointId="notificator")
-     * @Async(channelName=AmqpConfiguration::SEND_NOTIFICATION_CHANNEL)
      */
     public function send(PersonRelatedEvent $personWasRegistered)
     {

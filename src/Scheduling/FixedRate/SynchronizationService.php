@@ -3,9 +3,8 @@
 
 namespace Example\Scheduling\FixedRate;
 
-use Ecotone\Messaging\Annotation\InboundChannelAdapter;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
-use Ecotone\Messaging\Annotation\Poller;
+use Ecotone\Messaging\Annotation\Scheduled;
 use Ecotone\Modelling\Annotation\CommandHandler;
 use Ramsey\Uuid\Uuid;
 
@@ -17,13 +16,9 @@ class SynchronizationService
     /**
      * Run each second, with init delay half second
      *
-     * @InboundChannelAdapter(
+     * @Scheduled(
      *     endpointId="personSynchronizer",
-     *     requestChannelName="synchronizePerson",
-     *     poller=@Poller(
-     *          fixedRateInMilliseconds=1000,
-     *          initialDelayInMilliseconds=500
-     *     )
+     *     requestChannelName="synchronizePerson"
      * )
      */
     public function getUserToSynchronize()

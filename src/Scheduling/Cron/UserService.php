@@ -3,9 +3,8 @@
 
 namespace Example\Scheduling\Cron;
 
-use Ecotone\Messaging\Annotation\InboundChannelAdapter;
 use Ecotone\Messaging\Annotation\MessageEndpoint;
-use Ecotone\Messaging\Annotation\Poller;
+use Ecotone\Messaging\Annotation\Scheduled;
 use Ecotone\Modelling\Annotation\CommandHandler;
 use Ramsey\Uuid\Uuid;
 
@@ -17,12 +16,9 @@ class UserService
     /**
      * Run each minute
      *
-     * @InboundChannelAdapter(
+     * @Scheduled(
      *     endpointId="loggedUsersNotifactor",
-     *     requestChannelName="markAsLoggedIn",
-     *     poller=@Poller(
-     *          cron="* * * * *"
-     *     )
+     *     requestChannelName="markAsLoggedIn"
      * )
      */
     public function keepVerifyLoggedUsers()
